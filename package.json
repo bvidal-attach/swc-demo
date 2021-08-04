@@ -1,0 +1,20 @@
+{
+  "name": "swc-demo",
+  "version": "1.0.0",
+  "main": "index.js",
+  "author": "Brando Vidal <yisusdracon@gmail.com>",
+  "license": "MIT",
+  "scripts": {
+    "dev": "yarn start",
+    "start": "servor . index.html 5500 --reload --browse --static",
+    "clean": "rimraf node_modules",
+    "swc": "npx swc index.js -o build.js --config-file .swcrc"
+  },
+  "devDependencies": {
+    "@swc/cli": "0.1.46",
+    "@swc/core": "1.2.74",
+    "chokidar": "^3.5.2",
+    "rimraf": "3.0.2",
+    "servor": "4.0.2"
+  }
+}
