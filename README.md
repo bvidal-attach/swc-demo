@@ -14,10 +14,16 @@ Ejecutar web
 yarn dev
 ```
 
-Compilar carpeta de scripts
+Compilar carpeta de scripts a ES5
 
 ```
-yarn swc
+yarn dev
+```
+
+Compilar carpeta de scripts minificada a ES5
+
+```
+yarn build
 ```
 
 Limpiar carpeta de scripts
