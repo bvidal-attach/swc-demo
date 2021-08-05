@@ -11,7 +11,7 @@ yarn install
 Ejecutar web
 
 ```
-yarn dev
+yarn start
 ```
 
 Compilar carpeta de scripts a ES5
@@ -26,8 +26,8 @@ Compilar carpeta de scripts minificada a ES5
 yarn build
 ```
 
-Limpiar carpeta de scripts
+Limpiar carpeta de paquetes y scripts
 
 ```
-yarn clean:build
+yarn clean
 ```
