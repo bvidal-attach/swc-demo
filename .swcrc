@@ -25,5 +25,12 @@
       "mangle": true
     }
   },
-  "minify": true
+  "minify": true,
+  "module": {
+    "type": "commonjs",
+    "strict": false,
+    "strictMode": true,
+    "lazy": false,
+    "noInterop": false
+  }
 }

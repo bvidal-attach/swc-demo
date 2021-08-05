@@ -14,8 +14,14 @@ Ejecutar web
 yarn dev
 ```
 
-Compilar script
+Compilar carpeta de scripts
 
 ```
 yarn swc
+```
+
+Limpiar carpeta de scripts
+
+```
+yarn clean:build
 ```

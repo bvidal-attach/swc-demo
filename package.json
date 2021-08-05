@@ -6,9 +6,10 @@
   "license": "MIT",
   "scripts": {
     "dev": "yarn start",
-    "start": "servor . index.html 5500 --reload --browse --static",
+    "start": "servor src index.html 5500 --reload --browse --static",
     "clean": "rimraf node_modules",
-    "swc": "npx swc index.js -o build.js --config-file .swcrc"
+    "clean:build": "rimraf dist",
+    "swc": "yarn clean:build && npx swc src/js/* --only **/*.js --out-dir dist --config-file .swcrc"
   },
   "devDependencies": {
     "@swc/cli": "0.1.46",
