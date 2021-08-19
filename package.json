@@ -6,16 +6,18 @@
   "license": "MIT",
   "scripts": {
     "start": "servor src index.html 5500 --reload --browse --static",
-    "dev": "yarn clean:local && npx swc src/js/* --only **/*.js --out-dir local --config-file .dev.swcrc",
-    "dev:minify": "yarn clean:local && npx swc src/js/* --only **/*.js --out-dir local --config-file .build.swcrc",
-    "build": "yarn clean:build && npx swc src/js/* --only **/*.js --out-dir dist --config-file .build.swcrc",
-    "clean:local": "rimraf local/",
-    "clean:build": "rimraf dist/",
-    "clean": "rimraf node_modules/ local/ dist/"
+    "dev": "yarn run clean:dev && npx swc src/* --only **/*.js --out-dir local --config-file .swcrc",
+    "watch": "yarn run clean:dev && npx swc src/* --only **/*.js --out-dir local --config-file .swcrc -w",
+    "build": "yarn run clean:dist && npx spack",
+    "clean:dev": "rimraf local/",
+    "clean:dist": "rimraf dist/",
+    "clean": "yarn run clean:dev && yarn run clean:dist",
+    "clean:all": "yarn run clean && rimraf node_modules"
   },
   "devDependencies": {
     "@swc/cli": "0.1.46",
     "@swc/core": "1.2.74",
+    "@swc/helpers": "^0.2.13",
     "chokidar": "^3.5.2",
     "rimraf": "3.0.2",
     "servor": "4.0.2"
