@@ -1,21 +1,21 @@
 // importing config creator
 const { config } = require('@swc/core/spack');
 
-// Create name index
+// import path module
 const path = require('path');
 const time = new Date().getTime();
-const name = `index${time}.js`;
+const filename = `index${time}.js`;
 
 // export config
 module.exports = config({
   // start file
   entry: {
-    path: path.join(__dirname, 'src/js', 'index.js'),
+    path: path.join(__dirname, 'src', 'index.js'),
   },
   // output file
   output: {
-    path: path.join(__dirname, 'dist'),
-    name: `${name}`,
+    path: path.join(__dirname, 'build'),
+    name: `${filename}`,
   },
   module: {
     type: 'commonjs',
@@ -26,9 +26,11 @@ module.exports = config({
   },
   options: {
     jsc: {
-      target: 'es5', // 'es2016' // 'es2017'
+      target: 'es5', // 'es2016' // 'es2017' // 'es2018'
       loose: true,
     },
-    // minify: true,
+    minify: true,
   },
 });
+
+console.log('filename -> ', `index${time}`)

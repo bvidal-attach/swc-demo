@@ -14,8 +14,8 @@
       "importMeta": false
     },
     "transform": null,
-    "target": "es5",
-    "loose": false,
+    "target": "es2018",
+    "loose": true,
     "externalHelpers": false,
     "keepClassNames": false,
     "minify": {
