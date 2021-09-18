@@ -4,7 +4,8 @@ const { config } = require('@swc/core/spack');
 // import path module
 const path = require('path');
 const time = new Date().getTime();
-const filename = `index${time}.js`;
+// const filename = `index${time}.js`;
+const filename = `index.js`;
 
 // export config
 module.exports = config({
@@ -26,7 +27,7 @@ module.exports = config({
   },
   options: {
     jsc: {
-      target: 'es5', // 'es2016' // 'es2017' // 'es2018'
+      target: 'es2016', // 'es2016' // 'es2017' // 'es2018'
       loose: true,
     },
     minify: true,
