@@ -14,7 +14,7 @@
       "importMeta": false
     },
     "transform": null,
-    "target": "es2017",
+    "target": "es5",
     "loose": true,
     "externalHelpers": false,
     "keepClassNames": false,

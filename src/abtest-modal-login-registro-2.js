@@ -19,26 +19,37 @@ if (typeof window.attach != 'undefined') {
         onCloseButtonClick: function () {
           document.documentElement.removeAttribute('data-show-modal');
         },
-        _onAnyClick: function () {
-          var boxTabRegister = document.querySelector('.cm-login .tab-box .col-tab .column-tab:nth-child(2)');
-          var loginAccount = document.querySelector('.cm-login .tab-box .col-tab .column-tab:nth-child(1)');
+        _onAnyClick: function (isLogin) {
+          var loginAccount = document.querySelector('.cm-login .tab-box .col-tab:nth-child(1)');
+          var boxTabRegister = document.querySelector('.cm-login .tab-box .col-tab:nth-child(2)');
 
-          loginAccount.classList.add('active');
-          boxTabRegister.classList.remove('active');
+          if (isLogin) {
+            loginAccount && loginAccount.classList.add('active');
+            boxTabRegister && boxTabRegister.classList.remove('active');
+          } else {
+            loginAccount && loginAccount.classList.remove('active');
+            boxTabRegister && boxTabRegister.classList.add('active');
+          }
         },
-        _onFormClick: function (sel) {
+        _onFormClick: function (sel, isLogin) {
+          me.listeners._onAnyClick(isLogin);
+
           var iframeEl = document.querySelector('.cm-box iframe');
-          var iframeDocument = iframeEl.contentDocument;
-          var link = iframeDocument.querySelector(sel);
+          var iframeDocument = iframeEl && iframeEl.contentDocument;
+          var link = iframeDocument && iframeDocument.querySelector(sel);
           link && link.click();
         },
+        onFormRegisterClick: function () {
+          me.listeners._onAnyClick(false);
+        },
+        onFormLoginClick: function () {
+          me.listeners._onAnyClick(true);
+        },
         registerClick: function () {
-          me.listeners._onAnyClick();
-          me.listeners._onFormClick('#gigya-login-form .under-site-login label a');
+          me.listeners._onFormClick('#gigya-login-form .under-site-login label a', false);
         },
         loginClick: function () {
-          me.listeners._onAnyClick();
-          me.listeners._onFormClick('#gigya-register-form .under-site-login label a');
+          me.listeners._onFormClick('#gigya-register-form .under-site-login label a', true);
         },
       },
       run: function () {
@@ -79,6 +90,7 @@ if (typeof window.attach != 'undefined') {
             `${dc} .custom-modal-close { position: absolute; right: 0; top: -40px; font-weight: 300; width: 35px; height: 35px; display: flex; justify-content: center; align-items: center; font-size: 22px; line-height: 1; cursor: pointer; background-color: #F3F3F3; color: #008A1E; border-radius: 50%; padding: 0; border: 0; }`,
             `@media screen and (min-width:1024px){`,
             `${dc} .cm-box { max-width: 570px; }`,
+            `${dc} a.loginClick, a.registerClick { cursor: pointer; }`,
             `${dc} .cm-box .tab-box .col-tab a{ font-size: 18px; font-weight: 500; color: #797F82;text-align:center; display:block;text-decoration:none;display: flex;align-items: center;justify-content: center;}`,
             `}`,
           ].join('');
@@ -92,10 +104,10 @@ if (typeof window.attach != 'undefined') {
             `<button class="custom-modal-close">&#10006;</button>`,
             `<div class="tab-box">`,
             `<div class="col-tab active">`,
-            `<a class="gigya-register-here-link loginClick" data-switch-screen="gigya-register-screen" data-screenset-element-id="__gig_template_element_13_1629995418536" data-screenset-element-id-publish="false" data-screenset-roles="instance,template,instance" href="javascript:void(0)"> Ingresa a tu cuenta </a>`,
+            `<a class="gigya-login-here-link loginClick" data-switch-screen="gigya-login-screen" href="javascript:void(0)"> Ingresa a tu cuenta </a>`,
             `</div>`,
             `<div class="col-tab">`,
-            `<a class="gigya-register-here-link registerClick" data-switch-screen="gigya-register-screen" data-screenset-element-id="__gig_template_element_13_1629995418536" data-screenset-element-id-publish="false" data-screenset-roles="instance,template,instance"  href="javascript:void(0)"> Regístrate </a>`,
+            `<a class="gigya-register-here-link registerClick" data-switch-screen="gigya-register-screen" href="javascript:void(0)"> Regístrate </a>`,
             `</div>`,
             `</div>`,
             `<div class="iframeWrapper">`,
@@ -261,12 +273,12 @@ if (typeof window.attach != 'undefined') {
                 iframeWindow.onLoginAndRegisterScreenSwitches = function () {
                   iframeAttach.util.seekFor('#gigya-login-form .under-site-login label a', { tries: 50, delay: 500 }, function (linkRegisterEls) {
                     var linkRegisterEl = linkRegisterEls[0];
-                    linkRegisterEl.addEventListener('click', me.listeners._onAnyClick);
+                    linkRegisterEl.addEventListener('click', me.listeners.onFormRegisterClick);
                   });
 
                   iframeAttach.util.seekFor('#gigya-register-form .under-site-login label a', { tries: 50, delay: 500 }, function (linkLoginEls) {
                     var linkLoginEl = linkLoginEls[0];
-                    linkLoginEl.addEventListener('click', me.listeners._onAnyClick);
+                    linkLoginEl.addEventListener('click', me.listeners.onFormLoginClick);
                   });
 
                   iframeAttach.util.seekFor(
